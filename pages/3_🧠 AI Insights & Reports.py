@@ -16,19 +16,14 @@ else:
     st.info("ℹ️ Please upload a dataset from the 'Upload CSV Dataset' page first.")
     st.stop()
 
-st.subheader("📌 Dataset Summary ")
-st.write(f"**Rows**:{df.shape[0]}")
-st.write(f"**Columns**:{df.shape[1]}")
-
-st.subheader("📋 Column Names")
-column_df = pd.DataFrame({
-        "Column Name": df.columns
-     })
-st.dataframe(column_df, )
 
 st.header("💬 Ask Your Question")
 
-user_question=st.text_area("Enter your question to be asked by AI")
+user_question = st.text_area(
+    "Enter your question",
+    height=150,
+    placeholder="Example: Which products generate the highest revenue and what should the company focus on?"
+)
 
 btn=st.button("🧠 Generate AI Insights")
 if btn:
@@ -37,21 +32,30 @@ if btn:
    else:
       prompt = f"""
       You are an expert Business Data Analyst.
+      Dataset Shape:
+      Rows: {df.shape[0]}
+      Columns: {df.shape[1]}
 
       Dataset Columns:
       {df.columns.tolist()}
+      
+      Dataset Statistics:
+      {df.describe(include="all").to_string()}
 
       Dataset Sample:
-      {df.head(10).to_string()}
+      {df.head(5).to_string()}
 
+      
       User Question:
       {user_question}
 
       Provide:
-      1. A clear answer to the user's question.
-      2. Key business insights.
-      3. Actionable recommendations (if applicable).
-      4. Mention any limitations if the dataset sample is insufficient.
+      1. A direct answer to the user's question.
+      2. Important patterns or trends found.
+      3. Business insights.
+      4. Actionable recommendations.
+      5. Mention any limitations if only the sample data is available.
+      Keep the response well-structured using Markdown headings and bullet points.
       """
       
       client = genai.Client(
@@ -68,14 +72,17 @@ if btn:
         st.success("✅ AI Insights Generated Successfully")
         
         st.session_state["AI_Insights"] = response.text
+        st.divider()
         st.header("📊 AI Business Insights")
-        st.write(response.text)
+        with st.container(border=True):
+            st.markdown(response.text)
 
       except Exception as e:
         st.error(f"❌ Error: {e}")
 
 
-st.title("⬇️ Download Report")
+st.divider()
+st.header("⬇️ Download Report")
 
 
 if "AI_Insights" in st.session_state:
@@ -108,7 +115,7 @@ if "AI_Insights" in st.session_state:
     st.download_button(
         label="⬇️ Download AI Insights Report",
         data=report_bytes,
-        file_name="AI_Business_Report.txt",
+        file_name="DataInsight_AI_Report.txt",
         mime="text/plain"
 )
 
