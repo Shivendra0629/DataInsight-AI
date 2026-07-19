@@ -1,4 +1,8 @@
 # 🚀 DataInsight AI
+An AI-powered business intelligence platform for data cleaning, interactive analytics, and automated business insights.
+## 🚀 Live Application
+
+👉 https://datainsightai.streamlit.app/
 
 ### AI-Powered Business Intelligence Platform
 
@@ -79,14 +83,14 @@ Generate and download a complete AI Business Report including:
 
 # 🛠️ Tech Stack
 
-| Technology | Purpose |
-|------------|----------|
-| Python | Backend |
-| Streamlit | Web Application |
-| Pandas | Data Processing |
-| Plotly Express | Interactive Charts |
-| Plotly Figure Factory | Correlation Heatmap |
-| Google Gemini API | AI Business Insights |
+| Technology        | Usage                        |
+| ----------------- | ---------------------------- |
+| Python            | Core programming language    |
+| Streamlit         | Web application framework    |
+| Pandas            | Data preprocessing           |
+| Plotly            | Interactive visualizations   |
+| Google Gemini API | AI-powered business insights |
+
 
 ---
 
@@ -113,12 +117,13 @@ DataInsight-AI/
 
 ---
 
+
 # 🚀 Installation
 
 Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/DataInsight-AI.git
+git clone https://github.com/Shivendra0629/DataInsight-AI.git
 ```
 
 Move into the project directory
@@ -153,7 +158,7 @@ Install dependencies
 pip install -r requirements.txt
 ```
 
-Run the application
+Start the Streamlit application
 
 ```bash
 streamlit run Home.py
@@ -180,14 +185,14 @@ GEMINI_API_KEY = "YOUR_API_KEY"
 
 # 🎯 Project Highlights
 
+- AI-powered business intelligence
 - Multi-page Streamlit application
-- AI-powered business analysis
+- Automated data preprocessing
 - Interactive Plotly dashboards
-- Data preprocessing pipeline
-- Downloadable AI reports
-- Clean and modern user interface
+- AI-generated business reports
+- Downloadable analysis reports
 - Session state management
-- Responsive layout
+- Responsive user interface
 
 ---
 
@@ -243,6 +248,6 @@ This project is licensed under the MIT License.
 
 **Shivendra Mahato**
 
-Python Developer | Data Analytics Enthusiast | AI & Machine Learning Learner
+Python Developer • Data Analytics Enthusiast • AI & Machine Learning Learner
 
 ---
