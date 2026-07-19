@@ -22,6 +22,8 @@ if "Cleaned_Dataset" in st.session_state:
     duplicate=df.duplicated().sum()
     
     rows_1,col_1,missing_1,duplicates_1=st.columns(4)
+
+    
     rows_1.metric( 
          label="Rows",
          value=df.shape[0]
@@ -38,6 +40,7 @@ if "Cleaned_Dataset" in st.session_state:
          label="Duplicates",
          value=duplicate
     )
+    
 else:
     st.info("ℹ️ Please upload a dataset from the 'Upload CSV Dataset' page first.")
     st.stop()
@@ -49,7 +52,6 @@ select_feature,chart_feature=st.columns([2,1])
 with select_feature:
      with st.container(border=True):
 
-       
         st.subheader("📌 Axis Selection")
         selected_x_column=st.selectbox("📌Select X-axis Column",df.columns.tolist())
         selected_y_column=st.selectbox("📌Select Y-axis Column",df.columns.tolist())
@@ -65,6 +67,7 @@ with chart_feature:
                           "🔥 Correlation Heatmap"
                           ]
              selected_chart=st.selectbox("Choose Visualization",chart_list)
+           
 
 st.divider()
 st.subheader("🎨 Chart Customization")
@@ -105,7 +108,6 @@ if btn:
         st.error("❌ X-axis and Y-axis columns cannot be the same. Please select different columns.")
     
     elif selected_chart=="📊 Bar Plot":
-        st.success("✅ Visualization generated successfully.")
         fig=px.bar(
                     df,
                     x=selected_x_column,

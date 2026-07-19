@@ -1,12 +1,19 @@
 import streamlit as st
 import pandas as pd
 from google import genai
+from datetime import datetime
 
 st.title("🧠 Get AI-Powered Business Insights")
 st.subheader("Ask questions about your dataset and receive AI-generated insights.")
+client = genai.Client(
+    api_key=st.secrets["GEMINI_API_KEY"]
+)
 
 if "Cleaned_Dataset" in st.session_state:
     df=st.session_state["Cleaned_Dataset"]
+    st.info(
+    f"📊 Dataset Loaded: **{df.shape[0]} rows × {df.shape[1]} columns**"
+)
     st.success("✅ Using the cleaned dataset for AI-powered insights.")
 elif "Dataset" in st.session_state:
     df=st.session_state["Dataset"]
@@ -18,14 +25,24 @@ else:
 
 
 st.header("💬 Ask Your Question")
+st.caption("💡 Example questions you can ask:")
 
+st.markdown("""
+- Which category has the highest sales?
+- What trends do you observe in the dataset?
+- Which products are underperforming?
+- Are there any anomalies or outliers?
+- What business recommendations would you make?
+""")
 user_question = st.text_area(
     "Enter your question",
     height=150,
     placeholder="Example: Which products generate the highest revenue and what should the company focus on?"
 )
 
-btn=st.button("🧠 Generate AI Insights")
+btn=st.button("🧠 Generate AI Insights",use_container_width=True,
+    disabled=not user_question.strip())
+
 if btn:
    if  user_question.strip() =="":
     st.warning("⚠️ Please enter a question before generating AI insights.")
@@ -56,11 +73,11 @@ if btn:
       4. Actionable recommendations.
       5. Mention any limitations if only the sample data is available.
       Keep the response well-structured using Markdown headings and bullet points.
+      Do not make assumptions that are not supported by the dataset.
+      If information is unavailable, clearly say so instead of guessing.
       """
       
-      client = genai.Client(
-            api_key=st.secrets["GEMINI_API_KEY"]
-            ) 
+     
       
       
       try:
@@ -70,8 +87,8 @@ if btn:
             contents=prompt
             )
         st.success("✅ AI Insights Generated Successfully")
-        
         st.session_state["AI_Insights"] = response.text
+        st.session_state["User_Question"] = user_question
         st.divider()
         st.header("📊 AI Business Insights")
         with st.container(border=True):
@@ -79,7 +96,6 @@ if btn:
 
       except Exception as e:
         st.error(f"❌ Error: {e}")
-
 
 st.divider()
 st.header("⬇️ Download Report")
@@ -102,15 +118,25 @@ if "AI_Insights" in st.session_state:
     ---------------
     Rows    : {report_df.shape[0]}
     Columns : {report_df.shape[1]}
+    
+    User Question
+    -------------
+    {st.session_state["User_Question"]}
+    
     AI Business Insights
     --------------------
-
     {ai_report}
 
+    Generated On
+    ------------
+    {datetime.now().strftime("%d-%m-%Y %H:%M")}
     =============================
     Generated using DataInsight AI
     =============================
     """
+    st.caption(
+    f"Report Length: {len(ai_report.split())} words"
+)
     report_bytes = report.encode("utf-8")
     st.download_button(
         label="⬇️ Download AI Insights Report",
