@@ -1,12 +1,12 @@
 import streamlit as st
 import pandas as pd
-from google import genai
+from groq import Groq
 from datetime import datetime
 
 st.title("🧠 Get AI-Powered Business Insights")
 st.subheader("Ask questions about your dataset and receive AI-generated insights.")
-client = genai.Client(
-    api_key=st.secrets["GEMINI_API_KEY"]
+client = Groq(
+    api_key=st.secrets["GROQ_API_KEY"]
 )
 
 if "Cleaned_Dataset" in st.session_state:
@@ -48,51 +48,121 @@ if btn:
     st.warning("⚠️ Please enter a question before generating AI insights.")
    else:
       prompt = f"""
-      You are an expert Business Data Analyst.
-      Dataset Shape:
-      Rows: {df.shape[0]}
-      Columns: {df.shape[1]}
+You are an expert Data Scientist, Data Analyst, Business Intelligence Consultant, and Machine Learning Engineer.
 
-      Dataset Columns:
-      {df.columns.tolist()}
-      
-      Dataset Statistics:
-      {df.describe(include="all").to_string()}
+Your role is to analyze datasets professionally and provide accurate insights.
 
-      Dataset Sample:
-      {df.head(5).to_string()}
+Dataset Information
+===================
 
-      
-      User Question:
-      {user_question}
+Rows: {df.shape[0]}
+Columns: {df.shape[1]}
 
-      Provide:
-      1. A direct answer to the user's question.
-      2. Important patterns or trends found.
-      3. Business insights.
-      4. Actionable recommendations.
-      5. Mention any limitations if only the sample data is available.
-      Keep the response well-structured using Markdown headings and bullet points.
-      Do not make assumptions that are not supported by the dataset.
-      If information is unavailable, clearly say so instead of guessing.
-      """
-      
-     
-      
+Column Names:
+{', '.join(df.columns)}
+
+Data Types:
+{df.dtypes.to_string()}
+
+Summary Statistics:
+{df.describe(include='all').fillna('').round(2).to_string()}
+
+Missing Values:
+{df.isnull().sum().to_string()}
+
+Duplicate Rows:
+{df.duplicated().sum()}
+
+Sample Records:
+{df.head(5).to_markdown(index=False)}
+
+User Question:
+{user_question}
+
+Instructions
+
+- Analyze the ENTIRE dataset using the provided statistics, not only the sample rows.
+- Use the sample rows only to understand the structure of the dataset.
+- Never assume facts that are not supported by the data.
+- Never mention "Based on the sample..." unless the requested information truly cannot be inferred.
+- If exact calculations are impossible from the provided information, clearly explain WHY.
+- Write like a professional Data Scientist preparing an analysis report.
+- Avoid generic statements.
+- Be concise but insightful.
+- Use proper Markdown headings.
+
+Your response should contain the following sections whenever applicable:
+
+## Executive Summary
+Provide a concise answer to the user's question.
+
+## Key Findings
+Identify meaningful trends, distributions, correlations, anomalies, or observations.
+
+## Data Quality Assessment
+Mention:
+- Missing values
+- Duplicate rows
+- Possible outliers
+- Class imbalance
+- Data consistency issues
+
+## Exploratory Data Analysis (EDA)
+Describe:
+- Feature distributions
+- Relationships
+- Interesting observations
+- Potential visualizations that would be useful
+
+## Machine Learning Readiness
+Evaluate whether the dataset is suitable for ML.
+
+Recommend:
+- Target variable (if applicable)
+- Feature engineering
+- Encoding
+- Scaling
+- Feature selection
+- Train-test split considerations
+- Suitable ML algorithms
+
+## Business Insights
+Only include this section if business-related insights exist.
+
+## Recommendations
+Provide practical next steps.
+
+## Limitations
+Mention only genuine limitations.
+Do NOT say "only sample data" unless the requested answer truly requires calculations that cannot be derived from the provided statistics.
+
+Do not hallucinate.
+Do not invent numbers.
+Do not repeat the dataset information unnecessarily.
+"""
       
       try:
         with st.spinner("🤖 AI is analyzing your dataset..."):
-         response = client.models.generate_content(
-            model="gemini-3.5-flash",
-            contents=prompt
+           response = client.chat.completions.create(
+               model="llama-3.3-70b-versatile",
+               messages=[
+                  {
+                    "role": "user",
+                    "content": prompt
+                  }
+               ],
+               temperature=0.3
             )
+
+           answer = response.choices[0].message.content
+            
         st.success("✅ AI Insights Generated Successfully")
-        st.session_state["AI_Insights"] = response.text
+        st.session_state["AI_Insights"] =answer
         st.session_state["User_Question"] = user_question
         st.divider()
         st.header("📊 AI Business Insights")
         with st.container(border=True):
-            st.markdown(response.text)
+            st.markdown(answer)
 
       except Exception as e:
         st.error(f"❌ Error: {e}")
