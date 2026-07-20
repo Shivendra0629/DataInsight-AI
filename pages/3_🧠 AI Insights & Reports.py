@@ -74,7 +74,7 @@ Duplicate Rows:
 {df.duplicated().sum()}
 
 Sample Records:
-{df.head(5).to_markdown(index=False)}
+{df.head(5)}
 
 User Question:
 {user_question}
