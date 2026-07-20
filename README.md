@@ -1,122 +1,149 @@
 # 🚀 DataInsight AI
-An AI-powered business intelligence platform for data cleaning, interactive analytics, and automated business insights.
-## 🚀 Live Application
+
+### AI-Powered Data Analytics & Machine Learning Preparation Platform
+
+DataInsight AI is an AI-powered data analytics application built using **Python**, **Streamlit**, **Pandas**, **Plotly**, and **Groq (Llama 3.3 70B Versatile)**.
+
+It enables users to upload datasets, clean and preprocess data, perform Exploratory Data Analysis (EDA), generate interactive visualizations, and receive AI-powered insights using natural language.
+
+The platform is designed to simplify the complete data preparation workflow before machine learning model development.
+
+---
+
+# 🌐 Live Demo
 
 👉 https://datainsightai.streamlit.app/
 
-### AI-Powered Business Intelligence Platform
-
-DataInsight AI is a modern, AI-powered business intelligence application built with **Python**, **Streamlit**, **Pandas**, **Plotly**, and **Google Gemini AI**. It enables users to upload datasets, clean and preprocess data, generate interactive visualizations, and ask natural language questions to receive AI-generated business insights.
-
 ---
 
-## ✨ Features
+# ✨ Features
 
-### 📂 Dataset Upload
-- Upload CSV datasets instantly
-- Automatic dataset preview
-- Session-based data storage
-- Displays dataset shape and basic information
+## 📂 Data Processing
 
-### 🧹 Data Cleaning & Preprocessing
+Clean and preprocess datasets without writing code.
+
+### Available Operations
+
+- Upload CSV datasets
+- Preview uploaded dataset
 - Handle missing values
 - Remove duplicate records
 - Rename columns
-- Drop unnecessary columns
+- Drop unwanted columns
 - Convert data types
-- Preview cleaned dataset
 - Download cleaned dataset
-
-### 📊 Interactive Visual Analytics
-Generate interactive charts with customizable options:
-
-- 📊 Bar Plot
-- 📦 Box Plot
-- 📈 Histogram
-- 🥧 Pie Chart
-- 🔵 Scatter Plot
-- 🔥 Correlation Heatmap
-
-Additional customization includes:
-
-- Custom chart title
-- Multiple color themes
-- Adjustable chart height
-- Interactive Plotly visualizations
-
-### 🤖 AI-Powered Business Insights
-
-Powered by **Google Gemini 3.5 Flash**
-
-Ask business questions in natural language, such as:
-
-- Which product performs best?
-- What sales trends do you observe?
-- What are the major business insights?
-- Which variables are highly correlated?
-- What recommendations would improve performance?
-
-The AI analyzes:
-
-- Dataset structure
-- Dataset statistics
-- Sample records
-- User question
-
-and generates:
-
-- Direct answers
-- Business insights
-- Trend analysis
-- Actionable recommendations
-- Limitations (when applicable)
-
-### 📄 AI Report Download
-
-Generate and download a complete AI Business Report including:
-
-- Dataset summary
-- AI-generated insights
-- Recommendations
 
 ---
 
-# 🛠️ Tech Stack
+## 📈 Visual Analytics
 
-| Technology        | Usage                        |
-| ----------------- | ---------------------------- |
-| Python            | Core programming language    |
-| Streamlit         | Web application framework    |
-| Pandas            | Data preprocessing           |
-| Plotly            | Interactive visualizations   |
-| Google Gemini API | AI-powered business insights |
+Generate beautiful interactive visualizations using Plotly.
 
+### Supported Charts
+
+- 📊 Bar Chart
+- 📈 Histogram
+- 🔵 Scatter Plot
+- 🥧 Pie Chart
+- 📦 Box Plot
+- 🔥 Correlation Heatmap
+
+### Customization Options
+
+- Chart title
+- Color themes
+- Adjustable chart height
+- Interactive zoom and hover
+
+---
+
+## 🧠 AI Insights & Reports
+
+Powered by **Groq Cloud** using **Llama 3.3 70B Versatile**.
+
+Ask questions in natural language such as:
+
+- Summarize this dataset.
+- What important patterns do you observe?
+- Are there any anomalies?
+- Which columns appear highly correlated?
+- What preprocessing steps should be performed?
+- Is this dataset suitable for Machine Learning?
+- Suggest feature engineering ideas.
+- Recommend improvements before model training.
+
+The AI analyzes:
+
+- Dataset shape
+- Column information
+- Data types
+- Statistical summary
+- Sample records
+
+and generates:
+
+- Executive Summary
+- Dataset Interpretation
+- Pattern Detection
+- Trend Analysis
+- Data Quality Assessment
+- Actionable Recommendations
+- Machine Learning Preparation Suggestions
+
+---
+
+## 📄 AI Report Generation
+
+Generate downloadable AI reports containing:
+
+- Dataset Summary
+- User Question
+- AI-generated Insights
+- Recommendations
+- Report Generation Timestamp
+
+---
+
+# 🛠 Tech Stack
+
+| Technology | Purpose |
+|------------|---------|
+| Python | Core Programming Language |
+| Streamlit | Web application framework |
+| Pandas | Data Cleaning & Data Manipulation |
+| Plotly | Interactive Data Visualization |
+| Groq API | AI Inference |
+| Llama 3.3 70B Versatile | Large Language Model |
 
 ---
 
 # 📂 Project Structure
 
-```
+```text
 DataInsight-AI/
 │
 ├── Home.py
 │
 ├── pages/
-│   ├── 1_📂 Upload CSV Dataset.py
-│   ├── 2_🧹 Data Cleaning.py
-│   ├── 3_📈 Visual Analytics.py
-│   └── 4_🧠 AI Business Insights.py
+│   ├── 1_📂 Data Processing.py
+│   ├── 2_📈 Visual Analytics.py
+│   └── 3_🧠 AI Insights & Reports.py
+│
+├── utils/
+│
+├── assets/
 │
 ├── .streamlit/
 │   └── secrets.toml
 │
+├── .devcontainer/
+│
 ├── requirements.txt
 ├── README.md
-└── assets/
+└── .gitignore
 ```
 
 ---
-
 
 # 🚀 Installation
 
@@ -140,13 +167,13 @@ python -m venv venv
 
 Activate the environment
 
-Windows
+### Windows
 
 ```bash
 venv\Scripts\activate
 ```
 
-Mac/Linux
+### Linux / macOS
 
 ```bash
 source venv/bin/activate
@@ -158,7 +185,7 @@ Install dependencies
 pip install -r requirements.txt
 ```
 
-Start the Streamlit application
+Run the application
 
 ```bash
 streamlit run Home.py
@@ -166,48 +193,50 @@ streamlit run Home.py
 
 ---
 
-# 🔑 Gemini API Configuration
+# 🔑 API Configuration
 
-Create a file named:
+Create the following file:
 
 ```
 .streamlit/secrets.toml
 ```
 
-Add your API key:
+Add your Groq API Key:
 
 ```toml
-GEMINI_API_KEY = "YOUR_API_KEY"
+GROQ_API_KEY="YOUR_API_KEY"
 ```
 
 ---
 
-
 # 🎯 Project Highlights
 
-- AI-powered business intelligence
-- Multi-page Streamlit application
-- Automated data preprocessing
-- Interactive Plotly dashboards
-- AI-generated business reports
-- Downloadable analysis reports
-- Session state management
-- Responsive user interface
+- AI-assisted Dataset Analysis
+- Interactive Data Cleaning
+- Exploratory Data Analysis (EDA)
+- Interactive Plotly Dashboards
+- AI-generated Dataset Insights
+- Downloadable AI Reports
+- Session State Management
+- Multi-page Streamlit Application
+- Responsive User Interface
+- Machine Learning Dataset Preparation
 
 ---
 
 # 🔮 Future Improvements
 
-- PDF report generation
-- Excel report export
-- Additional chart types
-- Dashboard templates
-- User authentication
-- Cloud deployment
-- Database integration
-- Conversational AI chat interface
-- Time-series forecasting
-- Machine Learning predictions
+- Automated Feature Engineering
+- Machine Learning Model Training
+- AutoML Integration
+- Feature Importance Analysis
+- Outlier Detection Assistant
+- Time Series Forecasting
+- PDF Report Export
+- Excel Report Export
+- SQL Database Connectivity
+- User Authentication
+- Dashboard Sharing
 
 ---
 
@@ -215,26 +244,27 @@ GEMINI_API_KEY = "YOUR_API_KEY"
 
 Contributions are welcome!
 
-1. Fork the repository
-2. Create a new branch
+1. Fork the repository.
+
+2. Create a new branch.
 
 ```bash
 git checkout -b feature-name
 ```
 
-3. Commit your changes
+3. Commit your changes.
 
 ```bash
 git commit -m "Added new feature"
 ```
 
-4. Push your branch
+4. Push your branch.
 
 ```bash
 git push origin feature-name
 ```
 
-5. Open a Pull Request
+5. Open a Pull Request.
 
 ---
 
@@ -246,8 +276,9 @@ This project is licensed under the MIT License.
 
 # 👨‍💻 Developer
 
-**Shivendra Mahato**
+## Shivendra Mahato
 
-Python Developer • Data Analytics Enthusiast • AI & Machine Learning Learner
+**Python Developer • Data Analytics Enthusiast • AI & Machine Learning Learner**
 
 ---
+
