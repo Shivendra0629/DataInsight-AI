@@ -27,7 +27,7 @@ col2.metric(
 
 col3.metric(
     label="🤖 AI Engine",
-    value="Gemini"
+    value="Groq LLM"
 )
 
 st.divider()
